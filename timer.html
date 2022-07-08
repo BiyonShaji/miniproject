@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-box">
+        <div class="app-inner">
+            <div class="title">
+                <span>Timer</span>
+            </div>
+
+            <div class="timer-wrap">
+                <div id="timer">
+                    <div class="circle"></div>
+                </div>
+                <div class="time">
+                    <input type="text" maxlength="2" value="00" id="hh"><span>h</span>
+                    <input type="text" maxlength="2" value="00" id="mm"><span>m</span>
+                    <input type="text" maxlength="2" value="00" id="ss"><span>s</span>
+                </div>
+            </div>
+            <div class="sound-eff">
+                <label for="sound">Sound effect
+                    <input type="checkbox" id="sound" name="sound" checked />
+                    <span></span>
+                </label>
+            </div>
+            <div class="action">
+                <div class="action-item">
+                    <a href="#" id="start" class="btn green">Start</a>
+                </div>
+                <div class="action-item">
+                    <a href="#" id="pause" class="btn not-active">Stop</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery.1.11.2.min.js"></script>
+    <script src="timer.js"></script>
+
+</body>
+
+</html>

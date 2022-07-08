@@ -1,0 +1,263 @@
+
+@font-face {
+	font-family: 'fontello';
+	src: url('../font/fontello.eot?27606');
+	src: url('../font/fontello.eot?27606#iefix') format('embedded-opentype'), url('../font/fontello.woff?27606') format('woff'), url('../font/fontello.ttf?27606') format('truetype'), url('../font/fontello.svg?27606#fontello') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: "fontello";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: .2em;
+	text-align: center;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1em;
+	margin-left: .2em;
+}
+.icon-ok:before {
+	content: '\e800';
+}
+.icon-cancel:before {
+	content: '\e801';
+}
+
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {
+	background-color: whitesmoke;
+	margin: 0px;
+}
+input {
+	outline: none;
+}
+
+.circle {
+	width: 250px;
+	height: 250px;
+	border-radius: 150px;
+	border: solid 8px #F2F3F3;
+}
+
+.app-box {
+	margin: 0 auto;
+	position: relative;
+	width: 300px;
+}
+.app-inner {
+	overflow: hidden;
+	font-family: Arial;
+	background-color: #FFF;
+}
+.title {
+	padding: 15px 0;
+	border-bottom: 1px solid whitesmoke;
+}
+.title span {
+	text-align: center;
+	display: block;
+	font-size: 21px;
+	color: rgb(46, 51, 50);
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.timer{
+	width: 250px;
+	height: 250px;
+}
+
+.timer-wrap {
+	position: relative;
+	width: 250px;
+	margin: 0 auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.time {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -78px;
+	margin-top: -18px;
+}
+.time {
+	font-size: 26px;
+	color: rgb(46, 51, 50);
+}
+#hh, #mm, #ss {
+	text-align: center;
+	width: 31px;
+	border: none;
+	font-size: 26px;
+	color: rgb(46, 51, 50);
+}
+input[type="checkbox"] {
+	display: none;
+}
+.sound-eff input[type="checkbox"] + span {
+	float: right;
+}
+input[type="checkbox"] + span:before {
+	content: '';
+	border: 1px solid rgb(239, 239, 239);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	width: 21px;
+	height: 21px;
+	display: block;
+}
+.sound-eff input[type="checkbox"]:checked + span:before {
+	font-family: 'fontello';
+	content: '\e800';
+	border: 1px solid rgb(58, 205, 165);
+	color: rgb(58, 205, 165);
+	text-align: center;
+	line-height: 1.6;
+	font-size: 14px;
+}
+.sound-eff {
+	overflow: hidden;
+	border-top: 1px solid whitesmoke;
+	border-bottom: 1px solid whitesmoke;
+}
+.sound-eff label {
+	width: 100%;
+	float: left;
+	padding: 12px 20px;
+	font-size: 17px;
+	color: rgb(47, 55, 49);
+	line-height: 1.5;
+	cursor: pointer;
+}
+.sound-eff input {
+	float: right;
+	margin: 0;
+}
+.action {
+	overflow: hidden;
+	padding: 20px;
+	background-color: #fff;
+}
+.action .action-item {
+	width: 50%;
+	float: left;
+}
+.action .action-item:first-child {
+	padding-right: 10px;
+}
+.action .action-item:last-child {
+	padding-left: 10px;
+}
+.btn {
+	display: block;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 12px 15px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.btn.green {
+	background-color: #3ACDA5;
+	color: #fff;
+}
+.btn.green:hover {
+	background-color: rgba(58, 205, 165, 0.86);
+}
+.btn.red {
+	background-color: #F86C6C;
+	color: #fff;
+	cursor: pointer;
+}
+.btn.red:hover {
+	background-color: rgba(248, 108, 108, 0.84);
+}
+.btn.not-active {
+	background-color: #F0F0F0;
+	color: #BDC4BF;
+	cursor: default;
+}
+#popup {
+	display: none;
+	width: 300px;
+	background-color: #FFFFFF;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0px 0px 7px 0px rgba(209, 209, 209, 1);
+	-moz-box-shadow: 0px 0px 7px 0px rgba(209, 209, 209, 1);
+	box-shadow: 0px 0px 7px 0px rgba(209, 209, 209, 1);
+	font-family: Arial;
+}
+.time-up-wrap {
+	padding: 60px 0;
+	position: relative;
+}
+.b-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	text-align: center;
+	width: 25px;
+	height: 25px;
+	color: rgb(58, 205, 165);
+}
+.b-close:before {
+	font-family: 'fontello';
+	content: '\e801';
+	line-height: 1.8;
+	font-size: 15px;
+}
+.b-close:hover {
+	color: rgba(58, 205, 165, 0.86);
+}
+.time-up {
+	position: relative;
+	width: 240px;
+	height: 178px;
+	margin: 0 auto;
+	background-image: url('../img/time-up.png');
+	background-repeat: no-repeat;
+	background-size: 240px 178px;
+}
+.time-up span {
+	position: absolute;
+	bottom: 19px;
+	color: rgb(46, 51, 50);
+	display: block;
+	font-size: 26px;
+	text-align: center;
+	width: 100%;
+}
+
+/* Media queries for high-res displays */
+
+@media (-webkit-min-device-pixel-ratio: 2), /*  Firefox16, Chrome, Safari, iOS, Android */
+(min--moz-device-pixel-ratio: 2),    		/*  Older Firefox browsers (prior to Firefox16) */
+(-o-min-device-pixel-ratio: 2/1),    		/*  Opera */
+(min-device-pixel-ratio: 2),         		/*  not defined yet, http://www.w3.org/TR/css3-mediaqueries/ */
+(min-resolution: 2dppx),             		/*  not yet, probably in future, see http://www.w3.org/TR/css3-mediaqueries/ */
+(min-resolution: 192dpi)             		/*  works for non css3 browser */
+	{
+		.time-up {
+			background-image: url('../img/time-up-x2.png');
+			background-size: 240px 178px;
+		}
+
+	}
+
