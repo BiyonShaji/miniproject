@@ -128,8 +128,19 @@ function startcounter()
 			document.getElementById('hh').value='00';
 			document.getElementById('mm').value='00';
 			document.getElementById('ss').value='00';
-			$('#start').removeClass('red').addClass('green').text('Start');
-			$('#pause').removeClass('green').addClass('not-active');
+			chrome.storage.local.get({'notificationSetting': 'block'},
+    		function (data) {
+			//alert(data['notificationSetting']);
+      		if (data['notificationSetting'] != 'block') {
+		
+        		setNotificationSetting('block');
+      		} else {
+        
+        		setNotificationSetting('none');
+      		}
+    	});
+		$('#start').removeClass('red').addClass('green').text('Start');
+		$('#pause').removeClass('green').addClass('not-active');
 		}
 		}, 1000);
     });
