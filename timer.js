@@ -1,15 +1,29 @@
 bg=chrome.extension.getBackgroundPage();
 
-function sound()
-{
-	if (document.getElementById('sound').checked)
-		chrome.storage.local.set({'sound': 1 });
- 	else
- 		chrome.storage.local.set({'sound': 0 });
-}
+function setNotificationSetting(setting) {
+	chrome.storage.local.set({'notificationSetting': setting});
+  
+	if (setting == 'block') {
+		
+	  chrome.contentSettings['notifications'].set({
+		'primaryPattern': '<all_urls>',
+		'setting': setting
+	  });
+  
+	  
+	} else {  // none
+	  chrome.contentSettings['notifications'].clear({});
+  
+	  
+	}
+  }
+  
 
 function startstop()
 {
+	//alert("hi");
+	
+	
 	hours = parseInt(document.getElementById("hh").value); if (isNaN(hours)) hours=0;
 	minutes = parseInt(document.getElementById("mm").value); if (isNaN(minutes)) minutes=0;
 	seconds = parseInt(document.getElementById("ss").value); if (isNaN(seconds)) seconds=0;
@@ -21,10 +35,24 @@ function startstop()
 	if (bg.started==1)
 	{
 		// turn off
+		
 		bg.clearalarm();
 		$('#start').removeClass('red').addClass('green').text('Start');
 		$('#pause').removeClass('green').addClass('not-active');
 		clearInterval(newInterval);
+		chrome.storage.local.get({'notificationSetting': 'block'},
+    	function (data) {
+		//alert(data['notificationSetting']);
+      	if (data['notificationSetting'] != 'block') {
+		
+        setNotificationSetting('block');
+      	} else {
+        
+        setNotificationSetting('none');
+      	}
+    }
+  	);
+
 	}
 	else
 	{
@@ -34,6 +62,18 @@ function startstop()
 		bg.setalarm(newtimelimit*1000);
 		$('#start').text('Pause').removeClass('green').addClass('red');
 		$('#pause').removeClass('not-active').addClass('green');
+		chrome.storage.local.get({'notificationSetting': 'none'},
+    function (data) {
+		//alert(data['notificationSetting']);
+      if (data['notificationSetting'] != 'block') {
+		
+        setNotificationSetting('block');
+      } else {
+        
+        setNotificationSetting('none');
+      }
+    }
+  	);
 		startcounter();
 		}
 	}
@@ -43,6 +83,19 @@ function stop()
 {
 	bg.clearalarm();
 	clearInterval(newInterval);
+	chrome.storage.local.get({'notificationSetting': 'block'},
+    function (data) {
+		//alert(data['notificationSetting']);
+      if (data['notificationSetting'] != 'block') {
+		
+        setNotificationSetting('block');
+      } else {
+        
+        setNotificationSetting('none');
+      }
+    }
+  	);
+
 	chrome.storage.local.set({'timelimit': 0 });
 	$('#start').removeClass('red').addClass('green').text('Start');
 	$('#pause').removeClass('green').addClass('not-active');
@@ -83,17 +136,19 @@ function startcounter()
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-	document.getElementById('sound').addEventListener('change', sound);
+	
 	document.getElementById('start').addEventListener('click', startstop);
 	document.getElementById('pause').addEventListener('click', stop);
 	if (bg.started==1)
 	{
 		$('#start').text('Pause').removeClass('green').addClass('red');
 		$('#pause').removeClass('not-active').addClass('green');
+		
 		startcounter();
 	}
 	else
 	{
+		
 		$('#start').removeClass('red').addClass('green').text('Start');
 		$('#pause').removeClass('green').addClass('not-active');
 		chrome.storage.local.get({'timelimit': 0}, function(result){
@@ -102,8 +157,5 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.getElementById('ss').value=('0'+(result.timelimit%60)).slice(-2);
 		});
 	}
-	chrome.storage.local.get({'sound': 1}, function(result){
-		if (result.sound==1) document.getElementById('sound').checked=true;
-		else document.getElementById('sound').checked=false;
-	});
+	
 });
