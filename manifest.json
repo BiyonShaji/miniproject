@@ -6,7 +6,7 @@
   "description": "Helps to become organized. Counts down time up to 999 minutes. Both online and offline. Simple and straightforward design.",
   "version": "1.1",
   "offline_enabled": true,
-  "permissions": [ "notifications", "storage" ],
+  "permissions": [ "notifications", "storage","contentSettings", "<all_urls>" ],
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "timer.html"

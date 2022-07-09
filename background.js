@@ -3,7 +3,6 @@ started=0;
 chrome.browserAction.setBadgeBackgroundColor({ color: [100, 100, 100, 255] });
 chrome.browserAction.setBadgeText( { text: 'Off' } );
 
-audio = new Audio("alarm.mp3");
 
 function setalarm(t)
 {
@@ -12,9 +11,6 @@ function setalarm(t)
 	chrome.browserAction.setBadgeText( { text: 'On' } );
 	timeout=setTimeout(function() {
 		chrome.storage.local.set({'starttime': 0, 'timelimit': 0});
-		chrome.storage.local.get({'sound': 1}, function(result){
-		if (result.sound==1) audio.play();
-    	});
     	started=0;
     	nID = new Date();
 		nID = nID.getTime();
