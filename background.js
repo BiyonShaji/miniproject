@@ -32,6 +32,7 @@ function setalarm(t)
 function clearalarm()
 {
 	clearTimeout(timeout);
+	chrome.contentSettings['notifications'].clear({});
 	started=0;
 	chrome.browserAction.setBadgeBackgroundColor({ color: [100, 100, 100, 255] });
 	chrome.browserAction.setBadgeText( { text: 'Off' } );

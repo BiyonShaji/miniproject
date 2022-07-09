@@ -1,24 +1,5 @@
 bg=chrome.extension.getBackgroundPage();
 
-function setNotificationSetting(setting) {
-	chrome.storage.local.set({'notificationSetting': setting});
-  
-	if (setting == 'block') {
-		
-	  chrome.contentSettings['notifications'].set({
-		'primaryPattern': '<all_urls>',
-		'setting': setting
-	  });
-  
-	  
-	} else {  // none
-	  chrome.contentSettings['notifications'].clear({});
-  
-	  
-	}
-  }
-  
-
 function startstop()
 {
 	//alert("hi");
@@ -40,19 +21,8 @@ function startstop()
 		$('#start').removeClass('red').addClass('green').text('Start');
 		$('#pause').removeClass('green').addClass('not-active');
 		clearInterval(newInterval);
-		chrome.storage.local.get({'notificationSetting': 'block'},
-    	function (data) {
-		//alert(data['notificationSetting']);
-      	if (data['notificationSetting'] != 'block') {
+		chrome.contentSettings['notifications'].clear({});
 		
-        setNotificationSetting('block');
-      	} else {
-        
-        setNotificationSetting('none');
-      	}
-    }
-  	);
-
 	}
 	else
 	{
@@ -62,18 +32,10 @@ function startstop()
 		bg.setalarm(newtimelimit*1000);
 		$('#start').text('Pause').removeClass('green').addClass('red');
 		$('#pause').removeClass('not-active').addClass('green');
-		chrome.storage.local.get({'notificationSetting': 'none'},
-    function (data) {
-		//alert(data['notificationSetting']);
-      if (data['notificationSetting'] != 'block') {
-		
-        setNotificationSetting('block');
-      } else {
-        
-        setNotificationSetting('none');
-      }
-    }
-  	);
+		chrome.contentSettings['notifications'].set({
+			'primaryPattern': '<all_urls>',
+			'setting': 'block'
+		  });
 		startcounter();
 		}
 	}
@@ -83,18 +45,8 @@ function stop()
 {
 	bg.clearalarm();
 	clearInterval(newInterval);
-	chrome.storage.local.get({'notificationSetting': 'block'},
-    function (data) {
-		//alert(data['notificationSetting']);
-      if (data['notificationSetting'] != 'block') {
-		
-        setNotificationSetting('block');
-      } else {
-        
-        setNotificationSetting('none');
-      }
-    }
-  	);
+	
+	chrome.contentSettings['notifications'].clear({});
 
 	chrome.storage.local.set({'timelimit': 0 });
 	$('#start').removeClass('red').addClass('green').text('Start');
@@ -128,17 +80,7 @@ function startcounter()
 			document.getElementById('hh').value='00';
 			document.getElementById('mm').value='00';
 			document.getElementById('ss').value='00';
-			chrome.storage.local.get({'notificationSetting': 'block'},
-    		function (data) {
-			//alert(data['notificationSetting']);
-      		if (data['notificationSetting'] != 'block') {
-		
-        		setNotificationSetting('block');
-      		} else {
-        
-        		setNotificationSetting('none');
-      		}
-    	});
+			chrome.contentSettings['notifications'].clear({});
 		$('#start').removeClass('red').addClass('green').text('Start');
 		$('#pause').removeClass('green').addClass('not-active');
 		}
@@ -154,7 +96,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	{
 		$('#start').text('Pause').removeClass('green').addClass('red');
 		$('#pause').removeClass('not-active').addClass('green');
-		
+		chrome.contentSettings['notifications'].set({
+			'primaryPattern': '<all_urls>',
+			'setting': 'block'
+		  });
 		startcounter();
 	}
 	else
@@ -162,6 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 		$('#start').removeClass('red').addClass('green').text('Start');
 		$('#pause').removeClass('green').addClass('not-active');
+		chrome.contentSettings['notifications'].clear({});
+
 		chrome.storage.local.get({'timelimit': 0}, function(result){
 			document.getElementById('hh').value=('0'+(result.timelimit/60/60 | 0)).slice(-2);
 			document.getElementById('mm').value=('0'+((result.timelimit/60)%60 | 0)).slice(-2);
